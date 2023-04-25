@@ -4,12 +4,24 @@ const ModelUser = require('../models/users');
 const { generateJWT } = require('../helpers/jwt');
 
 const getUsers = async (req, res) => {
+
+    const { from = 0, limit = 5 } = req.query;
     // Se filtra los atributos a retornar en el segundo argumento
-    const Users = await ModelUser.find({}, 'name email role google');
+    // const Users = await ModelUser.find({}, 'name email role google')
+    //                     .skip(from)
+    //                     .limit(limit)
+    //                 ;
+    // const total = await ModelUser.count();
+
+    const [Users, total] = await Promise.all([
+        ModelUser.find({}, 'name email role google').skip(from).limit(limit),
+        ModelUser.count(),
+    ]);
 
     res.json({
         ok: true,
-        Users
+        Users,
+        total
     })
 };
 

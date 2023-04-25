@@ -20,7 +20,10 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', require('./routes/users'));
+app.use('/api/hospitals', require('./routes/hospitals'));
+app.use('/api/doctors', require('./routes/doctors'));
 app.use('/api/login', require('./routes/auth'));
+app.use('/api/searchs', require('./routes/searchs'));
 
 
 app.listen(PORT, () => {
