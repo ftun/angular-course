@@ -6,6 +6,8 @@ const { dbConnection } = require('./database/config');
 
 const PORT = process.env.PORT;
 const app = express();
+// exponer carpeta public
+app.use(express.static('./public'))
 // confifuracion de cors
 app.use(cors());
 // lectura y parse del body en los request
