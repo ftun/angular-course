@@ -23,7 +23,7 @@ router.post('/', [
 
 router.put('/:id', [
     validateJWT,
-    // check('name', 'name is required').notEmpty(),
+    check('name', 'name is required').notEmpty(),
     // check('email', 'email is required').isEmail(),
     // check('role', 'role is required').notEmpty(),
     InputValidator,

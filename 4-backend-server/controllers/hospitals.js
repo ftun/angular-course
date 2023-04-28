@@ -33,17 +33,56 @@ const createHospitals = async (req, res = response) => {
 };
 
 const updateHospitals = async (req, res = response) => {
-    return res.json({
-        ok: true,
-        msn: 'Hospitals'
-    })
+    try {
+        const { id } = req.params;
+        const existHospital = await ModelHospital.findById(id);
+
+        if (!existHospital) {
+            return res.status(404).json({
+                ok: false,
+                message: 'Hospital not exist!',
+            });
+        }
+
+        const Hospital = await ModelHospital.findByIdAndUpdate(id, {...req.body, user: req.uid }, { new: true });
+        return res.json({
+            ok: true,
+            Hospital
+        })
+
+    } catch (error) {
+        console.error('updateHospitals', error.message);
+        return res.status(500).json({
+            ok: false,
+            msn: 'Error inesperado... revisar logs'
+        });
+    }
 };
 
 const deleteHospitals = async (req, res = response) => {
-    return res.json({
-        ok: true,
-        msn: 'Hospitals'
-    })
+    try {
+        const { id } = req.params;
+
+        const existHospital = await ModelHospital.findById(id);
+        if (!existHospital) {
+            return res.status(404).json({
+                ok: false,
+                message: 'Hospital not exist!',
+            });
+        }
+
+        await ModelHospital.findByIdAndDelete(id, { new: true });
+        return res.json({
+            ok: true,
+            uid: id,
+        });
+    } catch (error) {
+        console.log('deleteHospitals', error.message);
+        return res.status(500).json({
+            ok: false,
+            msn: 'Error inesperado... revisar logs'
+        });
+    }
 };
 
 module.exports = {

@@ -2,10 +2,6 @@ const { OAuth2Client } = require('google-auth-library');
 
 const client = new OAuth2Client(process.env.GOOGLE_SECRET);
 
-// async function googleVerify(token) {
-    
-// }
-
 const googleVerify = async token => {
     const ticket = await client.verifyIdToken({
         idToken: token,
@@ -15,7 +11,7 @@ const googleVerify = async token => {
     });
     const payload = ticket.getPayload();
     const userid = payload['sub'];
-    console.log({ ...payload });
+    // console.log({ ...payload });
     return payload;
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
