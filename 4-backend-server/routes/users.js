@@ -14,7 +14,7 @@ router.get('/', validateJWT, getUsers);
 // el middleware se manda como segundo argumento, si son varios se define como un array[]
 // check('atributo-map', 'custom msn for validation')
 router.post('/', [
-    validateJWT,
+    // validateJWT,
     check('name', 'name is required').notEmpty(),
     check('password', 'password is required').notEmpty(),
     check('email', 'email is required').isEmail(),
